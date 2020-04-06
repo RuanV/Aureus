@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({limit: '20mb', extended: true }));
 app.use(express.static(__dirname + '/front'));
 app.use('/api',appRoutes);
 
-
-mongoose.connect("mongodb://localhost:27017", function(err) {
+console.log(encodeURIComponent("Bokke@2020"));
+mongoose.connect("mongodb+srv://ruanviljoen:"+encodeURIComponent("Bokke@2020")+"@aureus-eap1b.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser: true}, function(err) {
     if (err) {
         console.log("Not Connected to the Database");
         throw err;

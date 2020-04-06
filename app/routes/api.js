@@ -21,6 +21,7 @@ var transporter = nodemailer.createTransport({
 };*/
 
 
+
 module.exports = function(router) {
 
     //User Registrtion
@@ -98,7 +99,7 @@ module.exports = function(router) {
                     res.json({ success: false, message: err });
                 } else {
                     console.log("Saving Stock Item");
-                    res.json({ success: true, message: "item added to Stock"});
+                    res.json({ success: true, message: "item added to Stock" });
                 }
             });
 
@@ -114,7 +115,7 @@ module.exports = function(router) {
                 '<br><label>Email: ' + req.body.user.email + ' </label>' +
                 '<br><label>Cell Number: ' + req.body.cellnumber + ' </label>';
 
-                console.log(req.body.email);
+            console.log(req.body.email);
             var mailOptions = {
                 from: 'aureussales@gmail.com',
                 to: req.body.email,
