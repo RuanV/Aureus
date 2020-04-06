@@ -1,0 +1,22 @@
+
+<div class="page-Header">
+	<h1>User Login</h1>
+</div>
+
+<form ng-submit="doLogin(main);"  style="background-color:rgba(27, 27, 27);color: white;padding: 10px; ">
+	<label>UserName:</label>
+	<input class="form-control TableFilters" style="color: white;" type="text" name="usernam" placeholder="Please Provide UserName" ng-model="main.username">
+	<br>
+	<label>Password:</label>
+	<input class="form-control TableFilters" style="color: white;" type="password" name="password" placeholder="Please Provide Password" ng-model="main.password">
+	<br>
+	<button class="btn btn-success" type="submit">Login</button>&nbsp;
+</form>
+
+<div class="row show-hide-message" ng-if="MessagValidate">
+	<div class="alert alert-success">{{MessagValidateMessage}}</div>
+</div>
+<br>
+<div class="row show-hide-message" ng-if="!MessagValidate">
+	<div class="alert alert-danger">{{MessagValidateMessage}}</div>
+</div>

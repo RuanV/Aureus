@@ -1,0 +1,30 @@
+<div class="page-Header">
+    <h1>Please Register</h1>
+</div>
+<form ng-submit="regUser(RegData);" style="background-color:rgba(27, 27, 27);color: white;padding: 10px; ">
+    <label>Email:</label>
+    <input class="form-control TableFilters" style="color: white;" type="email" name="email" placeholder="Please Provide Email" ng-model="RegData.email" ng-blur="CheckEmail(RegData)">
+    <p class="hepl-block" ng-show="emailInvalid">{{emailMSg}}</p>
+    <br>
+    <label>Full Name:</label>
+    <input class="form-control TableFilters" style="color: white;" type="text" name="name" placeholder="Please Provide Name" ng-model="RegData.name">
+    <br>
+    <label>UserName:</label>
+    <input class="form-control TableFilters" style="color: white;" type="text" name="username" placeholder="Please Provide UserName" ng-model="RegData.username" ng-blur="CheckUsername(RegData)">
+    <p class="hepl-block" ng-show="usernameInvalid">{{usernameMSg}}</p>
+    <br>
+    <label>Password:</label>
+    <input class="form-control TableFilters" style="color: white;" type="password" name="firtPassword" ng-model="firtPassword" placeholder="Please Provide Password">
+    <label>Confirm Password:</label>
+    <input class="form-control TableFilters" style="color: white;" type="password" name="confirmPassword" match="{{[firtPassword]}}" ng-model="confirm" placeholder="Please Confirm Password" ng-change="RegData.password = confirm"> <label ng-if="!passConfirmed" style="color: red;">Passwords does not match do Not match</label>
+    <br>
+    <button class="btn btn-primary" type="submit" style="background-color: rgba(0, 188, 212,0.6);">Register</button>
+    <br>
+    <div class="row show-hide-message" ng-if="MessagValidate">
+        <div class="alert alert-success">{{MessagValidateMessage}}</div>
+    </div>
+    <br>
+    <div class="row show-hide-message" ng-if="!MessagValidate">
+        <div class="alert alert-danger">{{MessagValidateMessage}}</div>
+    </div>
+</form>

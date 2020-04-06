@@ -1,0 +1,33 @@
+<div class="page-Header">
+    <h1>Setup Contact Details</h1>
+</div>
+<form ng-submit="regContact(Setup);" style="background-color:rgba(27, 27, 27);color: white;padding: 10px; ">
+    <label>Email:</label>
+    <input class="form-control TableFilters" style="color: white;" type="email" name="email" placeholder="Please Provide Email" ng-model="Setup.email">
+    <br>
+    <label>Display Name:</label>
+    <input class="form-control TableFilters" style="color: white;" type="text" name="name" placeholder="Please Provide Name" ng-model="Setup.name">
+    <br>
+    <label>Main Cell Phone Number:</label>
+    <input class="form-control TableFilters" style="color: white;" type="tel" name="maincellnumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-156-3656" ng-model="Setup.maincellnumber" required>
+    <br>
+    <label>Alternative:</label>
+    <input class="form-control TableFilters" style="color: white;" type="tel" name="altenativecellphone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" ng-model="Setup.altcellnumber" placeholder="123-156-3656" required>
+    <br>
+    <label>Address:</label>
+    <input class="form-control TableFilters" style="color: white;" type="text" name="address"  ng-model="Setup.address" placeholder="Please Enter Address" required>
+    <br>
+    <div ng-if="userisAdmin">
+    	<h3>Payment Details</h3>
+        <label>Bank:</label>
+        <input class="form-control TableFilters" style="color: white;" type="text" name="altenativecellphone" ng-model="Setup.bankname" placeholder="Enter Bank">
+        <br>
+        <label>Branch:</label>
+        <input class="form-control TableFilters" style="color: white;" type="tex" name="altenativecellphone" ng-model="Setup.bankbranch" placeholder="Enter Branch Code">
+        <br>
+        <label>Account Number:</label>
+        <input class="form-control TableFilters" style="color: white;" type="numebr" name="altenativecellphone" ng-model="Setup.bankaccount" placeholder="Enter Account Number">
+        <br>
+    </div>
+    <button class="btn btn-primary" type="submit" style="background-color: rgba(0, 188, 212,0.6);">Save</button>
+</form>
