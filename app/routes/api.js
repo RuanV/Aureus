@@ -25,6 +25,7 @@ var transporter = nodemailer.createTransport({
 module.exports = function(router) {
 
     //User Registrtion
+    
 
     router.post('/users', function(req, res) {
         var user = new User();

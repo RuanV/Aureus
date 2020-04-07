@@ -100,7 +100,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
 
         $scope.getDetails = function() {
             $http.get('/api/getcontacts').then(function(data) {
-                if (data.data.contact) {
+                if (data.data.success) {
                     $scope.Setup = data.data.contact;
                 } else {
                     Swal.fire({
