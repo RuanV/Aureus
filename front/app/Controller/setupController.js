@@ -14,7 +14,6 @@ angular.module('setupController', [])
                         allowOutsideClick: false,
                         timer: 1000
                     });
-                    $timeout(function() { $location.path('/') }, 1200);
                 }
                 
             });

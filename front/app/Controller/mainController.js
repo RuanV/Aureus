@@ -92,6 +92,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                     } else {
                         $scope.MessagValidate = false;
                         $scope.MessagValidateMessage = data.data.message;
+                         Swal.close();
                     }
                 });
             }
@@ -109,7 +110,6 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                         allowOutsideClick: false,
                         timer: 1000
                     });
-                    $timeout(function() { $location.path('/') }, 1200);
                 }
 
             });

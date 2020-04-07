@@ -25,7 +25,7 @@ var transporter = nodemailer.createTransport({
 module.exports = function(router) {
 
     //User Registrtion
-    
+
 
     router.post('/users', function(req, res) {
         var user = new User();
@@ -408,10 +408,27 @@ module.exports = function(router) {
                     if (req.body.name == null || req.body.email == "" || req.body.email == null || req.body.maincellnumber == "" || req.body.maincellnumber == null || req.body.altcellnumber == "" || req.body.altcellnumber == null) {
                         res.json({ success: false, message: "Missing Info" });
                     } else {
-                        Contact.findOne({ _id: "5e86f1412c3d3e1114b8ec31" }, function(err, contact) {
+                        Contact.findOne({ _id: req.body._id }, function(err, contact) {
                             if (err) throw err;
                             if (!contact) {
-                                res.json({ success: false, message: "No item found" });
+                                var newContact = new Contact();
+                                newContact.name = req.body.name;
+                                newContact.email = req.body.email;
+                                newContact.maincellnumber = req.body.maincellnumber;
+                                newContact.altcellnumber = req.body.altcellnumber;
+                                newContact.address = req.body.address;
+                                newContact.bank = req.body.bank;
+                                newContact.bankbranch = req.body.bankbranch;
+                                newContact.bankaccount = req.body.bankaccount;
+                                newContact.save(function(err) {
+                                    if (err) {
+                                        res.json({ success: false, message: err });
+                                    } else {
+                                        console.log("Saving Contact Item");
+                                        res.json({ success: true, message: "item added to Contact Details" });
+                                    }
+                                });
+
                             } else {
                                 contact.name = req.body.name;
                                 contact.email = req.body.email;
@@ -421,7 +438,7 @@ module.exports = function(router) {
                                 contact.bank = req.body.bank;
                                 contact.bankbranch = req.body.bankbranch;
                                 contact.bankaccount = req.body.bankaccount;
-                                Contact.findOneAndUpdate({ _id: "5e86f1412c3d3e1114b8ec31" }, contact, { upsert: true }, function(err, item) {
+                                Contact.findOneAndUpdate({ _id: req.body._id }, contact, { upsert: true }, function(err, item) {
                                     if (err) throw err;
                                     if (!item) {
                                         res.json({ success: false, message: "No Contact found" })
@@ -442,7 +459,7 @@ module.exports = function(router) {
     })
 
     router.get('/getcontacts', function(req, res) {
-        Contact.findOne({ _id: "5e86f1412c3d3e1114b8ec31" }, function(err, contact) {
+        Contact.findOne({}, function(err, contact) {
             if (err) throw err;
             if (!contact) {
                 res.json({ success: false, message: "No item found" });

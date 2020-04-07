@@ -14,7 +14,7 @@ var settings = function(port) {
 		}
 	} else {
 		return {
-			mongoUri: "mongodb+srv://ruanviljoen:"+encodeURIComponent("Bokke@2020")+"@aureus-eap1b.mongodb.net/test?retryWrites=true&w=majority"
+			mongoUri: "mongodb://localhost:27017/test"
 		};
 	}
 }
