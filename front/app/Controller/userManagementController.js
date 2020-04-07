@@ -84,6 +84,7 @@ angular.module('userManagementController', [])
         $scope.EditUser = function(user) {
             $scope.EditUserDetails = {};
             $scope.EditUserDetails = user;
+            console.log(user);
             Swal.fire({
                 title: 'Edit User',
                 html: $scope.editHTML,

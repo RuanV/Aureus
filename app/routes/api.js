@@ -341,7 +341,7 @@ module.exports = function(router) {
                             user.name = req.body.name;
                             user.username = req.body.username;
                             user.email = req.body.email;
-                            user.permission = req.body.email;
+                            user.permission = req.body.permission;
                             User.findOneAndUpdate({ _id: req.body._id }, user, { upsert: true }, function(err, user) {
                                 if (err) throw err;
                                 if (!user) {

@@ -264,7 +264,7 @@ angular.module('stockManagementController', ['stockServices'])
             '<label>Description:</label>' +
             '<input class="form-control" type="text" name="name" placeholder="More details" ng-model="EditItem.description" ng-change="">' +
             '<br>' +
-            '<label>Cover Photos:</label>' +
+            '<label>Photos:</label>' +
             '<input type="file" id="files" multiple>' +
             '<label ng-if="!continue" style="color:red">Please Select a File Before Continue</label>' +
             '<br>' +
@@ -286,12 +286,13 @@ angular.module('stockManagementController', ['stockServices'])
             '</div>';
 
         $scope.EditStockItem = function(item) {
-            console.log(item);
+            
             $scope.EditItem = {};
             $scope.EditItem = item;
             $scope.getBase64 = item.media;
+            console.log(item);
             Swal.fire({
-                title: 'Add Stock Item',
+                title: 'Edit Stock Item',
                 html: $scope.editstockHTML,
                 showCancelButton: true,
                 allowOutsideClick: false,
@@ -321,14 +322,15 @@ angular.module('stockManagementController', ['stockServices'])
                                     if ((allFiles[i].type === "image/png") || (allFiles[i].type === "image/jpeg")) {
                                         readFile(allFiles[i]).then((content) => {
                                             $scope.continue = true;
-
-                                            $scope.getBase64.push(content);
+                                            console.log("single photo");
+                                            $scope.EditItem.displayPhoto = content;
                                         })
                                     }
                                 }
                             }
 
                         })
+                        
                     }, 300)
                 },
                 preConfirm: function() {
