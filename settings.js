@@ -9,8 +9,8 @@ var settings = function(port) {
 				cert: fs.readFileSync(path.join(__dirname, './certificates/production.crt')).toString(),
 				key: fs.readFileSync(path.join(__dirname, './certificates/production.key')).toString()
 			},
-			url: 'http://localhost',
-			mongoUri: "mongodb+srv://Administrator:"+encodeURIComponent("Bokke@2020")+"@127.0.0.1/test?retryWrites=true&w=majority"
+			url: 'http://aureussales.co.za',
+			mongoUri: "mongodb://Administrator:"+encodeURIComponent("Bokke@2020")+"@localhost:27090/test?retryWrites=true&w=majority"
 		}
 	} else {
 		return {
