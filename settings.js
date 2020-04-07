@@ -9,7 +9,7 @@ var settings = function(port) {
 				cert: fs.readFileSync(path.join(__dirname, './certificates/production.crt')).toString(),
 				key: fs.readFileSync(path.join(__dirname, './certificates/production.key')).toString()
 			},
-			url: 'http://aureussales.co.za',
+			url: 'https://aureussales.co.za',
 			mongoUri: "mongodb://Administrator:"+encodeURIComponent("Bokke@2020")+"@localhost:27090/test?retryWrites=true&w=majority"
 		}
 	} else {
