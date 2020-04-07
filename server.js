@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 var myArgs = process.argv.slice(2);
 
-var port = process.env.PORT || myArgs[0] || 8080;
+var port = process.env.PORT || 8080;
+if (typeof myArgs[0] !== 'undefined') port = parseFloat(myArgs[0]);
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
