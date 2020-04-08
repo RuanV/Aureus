@@ -6816,13 +6816,14 @@ button.close {
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);
-  width: 260px;
+  width: 290px;
   margin: auto;
   background-color: rgb(38, 50, 56);
   text-align: center;
   border-radius: 8px;
   font-family: arial;
   padding: 4px;
+  height: 350px;
 }
 
 .price {
