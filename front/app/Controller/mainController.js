@@ -117,17 +117,9 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
 
 
         $scope.getStockItemandDisplay = function(item) {
-            $scope.LoadingSWAL();
-            Stock.getStockByID(item._id).then(function(data) {
-                if (data.data.item) {
-                    $scope.ItemDisplayData = data.data.item;
-                    $scope.getDetails();
-                    Swal.close();
-                    $location.path('/displayItem');
-                } else {
-                    console.log(data.data)
-                }
-            })
+            $scope.ItemDisplayData = item;
+            $location.path('/displayItem');
+            
         }
 
         $scope.BackHome = function() {
