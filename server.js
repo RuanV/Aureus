@@ -15,7 +15,7 @@ var https = require('https');
 
 var settings = require('./settings.js')(port);
 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(bodyParser.json({limit: '20mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '20mb', extended: true }));
 app.use(express.static(__dirname + '/front'));
