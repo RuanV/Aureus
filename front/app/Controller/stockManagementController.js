@@ -223,7 +223,7 @@ angular.module('stockManagementController', ['stockServices'])
                                     $scope.continue = false;
                                     resizeImage({
                                         file: allFiles[i],
-                                        maxSize: 500
+                                        maxSize: 350
                                     }).then(function(resizedImage) {
                                         console.log("upload resized image");
                                         var reader = new FileReader();
@@ -267,8 +267,8 @@ angular.module('stockManagementController', ['stockServices'])
                                 allowOutsideClick: false,
                                 timer: 2000
                             })
+                            $scope.FetchefStock.push($scope.StockItem);
                             $scope.StockItem = {};
-                            $scope.GetStock();
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -359,20 +359,31 @@ angular.module('stockManagementController', ['stockServices'])
                             })
 
                         }
-                        document.getElementById('files').addEventListener('change', function(event) {
+
+                         document.getElementById('files').addEventListener('change', function(event) {
+                            $scope.EditItem.media = [];
                             var input = event.target;
                             if ('files' in input && input.files.length > 0) {
 
                                 var allFiles = input.files;
                                 for (var i = 0; i < allFiles.length; i++) {
                                     console.log(allFiles[i].type);
-                                    if ((allFiles[i].type === "image/png") || (allFiles[i].type === "image/jpeg")) {
-                                        readFile(allFiles[i]).then((content) => {
-                                            $scope.continue = true;
-                                            console.log("single photo");
-                                            $scope.EditItem.displayPhoto = content;
-                                        })
-                                    }
+                                    $scope.continue = false;
+                                    resizeImage({
+                                        file: allFiles[i],
+                                        maxSize: 350
+                                    }).then(function(resizedImage) {
+                                        console.log("upload resized image");
+                                        var reader = new FileReader();
+                                        reader.readAsDataURL(resizedImage);
+                                        reader.onloadend = function() {
+                                            var base64data = reader.result;
+                                            $scope.getBase64.push(base64data);
+                                            document.getElementById("displayPhoto").src = $scope.getBase64[0];
+                                        }
+                                    }).catch(function(err) {
+                                        console.error(err);
+                                    });
                                 }
                             }
 
