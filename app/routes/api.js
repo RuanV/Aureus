@@ -91,6 +91,7 @@ module.exports = function(router) {
         stock.model = req.body.model;
         stock.category = req.body.category;
         stock.media = req.body.media;
+        stock.displaynumber = req.body.displaynumber;
         console.log(req.body);
         if (req.body.name == null || req.body.name == "" || req.body.category == null || req.body.category == "" || req.body.price == null || req.body.price == "" || req.body.media.length == 0) {
             res.json({ success: false, message: "Missing Info" });
@@ -113,7 +114,7 @@ module.exports = function(router) {
 
             var sendText = '<h1>' + req.body.item + '</h1><br><p>' + req.body.query + '</p>' +
                 '<br><label>Name: ' + req.body.user.username + ' </label>' +
-                '<br><label>Email: ' + req.body.user.email + ' </label>' +
+                '<br><label>Email: ' + req.body.queryemail + ' </label>' +
                 '<br><label>Cell Number: ' + req.body.cellnumber + ' </label>';
 
             console.log(req.body.email);
@@ -362,6 +363,7 @@ module.exports = function(router) {
 
     router.put('/editstock', function(req, res) {
         var editItem = req.body;
+        console.log(editItem.displaynumber);
         User.findOne({ username: req.decoded.username }, function(err, mainuser) {
             if (err) throw err;
             if (!mainuser) {
@@ -380,6 +382,7 @@ module.exports = function(router) {
                             stock.description = req.body.description;
                             stock.media = req.body.media;
                             stock.sold = req.body.sold;
+                            stock.displaynumber = req.body.displaynumber;
                             StockItem.findOneAndUpdate({ _id: req.body._id }, stock, { upsert: true }, function(err, item) {
                                 if (err) throw err;
                                 if (!item) {

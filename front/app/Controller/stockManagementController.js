@@ -62,6 +62,32 @@ angular.module('stockManagementController', ['stockServices'])
         $scope.ImageReady = false;
         $scope.getBase64 = [];
 
+        $scope.DisplayNumber = 0;
+
+        $scope.DisplayRight = function(item) {
+            console.log($scope.DisplayNumber);
+            if (item.length > 0) {
+                $scope.DisplayNumber++;
+                if ($scope.DisplayNumber >= item.length) {
+                    $scope.DisplayNumber = item.length - 1;
+                }
+            } else {
+                $scope.DisplayNumber = 0;
+            }
+
+        };
+        $scope.DisplayLeft = function(item) {
+            console.log($scope.DisplayNumber);
+            if (item.length > 0) {
+                $scope.DisplayNumber--;
+                if ($scope.DisplayNumber <= 0) {
+                    $scope.DisplayNumber = 0;
+                }
+            } else {
+                $scope.DisplayNumber = 0;
+            }
+        };
+
 
         $scope.addstockHTML = '<div id="AngularApply">' +
             '<form>' +
@@ -77,11 +103,20 @@ angular.module('stockManagementController', ['stockServices'])
             '<label>Description:</label>' +
             '<input class="form-control" type="text" name="name" placeholder="More details" ng-model="StockItem.description" ng-change="">' +
             '<br>' +
-            '<label>Cover Photos:</label>' +
+            '<label>Photos:</label>' +
+            '<br>' +
+            ' <div class="upload">' +
+            '<button class="btn-iupload">Upload a file</button>' +
             '<input type="file" id="files" multiple>' +
+            '</div>' +
             '<label ng-if="!continue" style="color:red">Please Select a File Before Continue</label>' +
             '<br>' +
-            '<label ng-if="!continue" style="color:red">FileType: jpeg,png</label>' +
+            '<label>DisplayPhoto</label>' +
+            '<br>' +
+            '<img src="{{getBase64[DisplayNumber]}}" alt="" id="displayPhoto" style="80px;height: 50px;" >' +
+            '<br>' +
+            '<br>' +
+            '<button class="ImageArrows" ng-click="DisplayLeft(getBase64)">&#8882;</button><button class="ImageArrows" ng-click="DisplayRight(getBase64)">&#8883;</button>' +
             '<br>' +
             '<br>' +
             '<label >Category:</label>' +
@@ -89,6 +124,7 @@ angular.module('stockManagementController', ['stockServices'])
             '<option value="Boat">Boat</option>' +
             '<option value="Caravan">Caravan</option>' +
             '<option value="Trailer">Trailer</option>' +
+            '<option value="Other">Other</option>' +
             '</select>' +
             '</form>' +
             '</div>';
@@ -194,7 +230,8 @@ angular.module('stockManagementController', ['stockServices'])
                                         reader.readAsDataURL(resizedImage);
                                         reader.onloadend = function() {
                                             var base64data = reader.result;
-                                           $scope.getBase64.push(base64data);
+                                            $scope.getBase64.push(base64data);
+                                            document.getElementById("displayPhoto").src = $scope.getBase64[0];
                                         }
                                     }).catch(function(err) {
                                         console.error(err);
@@ -219,6 +256,7 @@ angular.module('stockManagementController', ['stockServices'])
             }).then((result) => {
                 if (result.value) {
                     $scope.StockItem.media = $scope.getBase64;
+                    $scope.StockItem.displaynumber = $scope.DisplayNumber;
                     console.log($scope.StockItem);
                     Stock.create($scope.StockItem).then(function(data) {
                         console.log(data);
@@ -265,11 +303,19 @@ angular.module('stockManagementController', ['stockServices'])
             '<input class="form-control" type="text" name="name" placeholder="More details" ng-model="EditItem.description" ng-change="">' +
             '<br>' +
             '<label>Photos:</label>' +
+            '<br>' +
+            ' <div class="upload">' +
+            '<button class="btn-iupload">Upload a file</button>' +
             '<input type="file" id="files" multiple>' +
+            '</div>' +
             '<label ng-if="!continue" style="color:red">Please Select a File Before Continue</label>' +
             '<br>' +
-            '<label ng-if="!continue" style="color:red">FileType: jpeg,png</label>' +
+            '<label>DisplayPhoto</label>' +
             '<br>' +
+            '<img src="{{EditItem.media[DisplayNumber]}}" alt="" id="displayPhoto" style="80px;height: 50px;" >' +
+            '<br>' +
+            '<br>' +
+            '<button class="ImageArrows" ng-click="DisplayLeft(EditItem.media)">&#8882;</button><button class="ImageArrows" ng-click="DisplayRight(EditItem.media)">&#8883;</button>' +
             '<label>Sold:</label>' +
             '<label class="switch"> <input type="checkbox" ng-model="EditItem.sold"><span class="slider round"></span></label>' +
             '<br>' +
@@ -278,6 +324,7 @@ angular.module('stockManagementController', ['stockServices'])
             '<option value="Boat">Boat</option>' +
             '<option value="Caravan">Caravan</option>' +
             '<option value="Trailer">Trailer</option>' +
+            '<option value="Other">Other</option>' +
             '</select>' +
             '<br>' +
             '<a href="" ng-if="IsMobile"><button type="button" class="btn btn-danger" ng-click="deleteStockItem(EditItem)" style="background-color: rgba(244, 67, 54,0.6);">&#x2297;</button></a>' +
@@ -286,7 +333,7 @@ angular.module('stockManagementController', ['stockServices'])
             '</div>';
 
         $scope.EditStockItem = function(item) {
-            
+
             $scope.EditItem = {};
             $scope.EditItem = item;
             $scope.getBase64 = item.media;
@@ -330,7 +377,7 @@ angular.module('stockManagementController', ['stockServices'])
                             }
 
                         })
-                        
+
                     }, 300)
                 },
                 preConfirm: function() {
@@ -347,11 +394,12 @@ angular.module('stockManagementController', ['stockServices'])
                 if (result.value) {
                     $scope.LoadingSWAL();
                     $scope.EditItem.media = $scope.getBase64;
+                    $scope.EditItem.displaynumber = $scope.DisplayNumber;
                     Stock.editStockItem($scope.EditItem).then(function(data) {
                         console.log(data)
                         if (data.data.success) {
                             Swal.fire({
-                                title: 'Item Added Successfull',
+                                title: 'Item Edited Successfull',
                                 icon: 'success',
                                 allowOutsideClick: false,
                                 timer: 1000

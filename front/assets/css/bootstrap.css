@@ -6947,3 +6947,27 @@ input:checked + .slider:before {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn-iupload {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.upload input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}

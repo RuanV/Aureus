@@ -203,6 +203,9 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
             '<br>' +
             '<label>Add Cell Number:</label>' +
             '<br>' +
+            '<label>Add Email:</label>' +
+            '<input class="form-control" type="email" name="email" placeholder="Please Provide Email" ng-model="QueryInfo.queryemail">' +
+            '<br>' +
             '<input class="form-control" type="tel" name="altenativecellphone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" ng-model="QueryInfo.cellnumber" placeholder="082-595-6666" required>' +
             '<br>' +
             '<br>' +
@@ -212,7 +215,6 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
             '</div>';
 
         $scope.SendQuery = function(item) {
-            if (Auth.isLoggedIn()) {
                 Swal.fire({
                     title: 'Send Query',
                     html: $scope.queryHTML,
@@ -267,20 +269,6 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                         })
                     }
                 })
-            } else {
-                Swal.fire({
-                    title: 'Please Login Fisrt before Your send Query',
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Go to Login"
-                }).then((result) => {
-                    if (result.value) {
-                        console.log("Go to Login");
-                        $timeout(function() { $location.path('/login') }, 800);
-                    }
-                })
-            }
-
         }
 
 

@@ -18,18 +18,19 @@
   ];
 
   var StockSchema = new Schema({
-      name: { type: String, required: true},
-      description: { type: String, required: false},
-      model: { type: String, required: false},
-      price: { type: Number, required: true},
-      category: { type: String, required: true},
+      name: { type: String, required: true },
+      description: { type: String, required: false },
+      model: { type: String, required: false },
+      price: { type: Number, required: true },
+      category: { type: String, required: true },
       sold: { type: Boolean, required: true, default: false },
-      soldFor: { type: Number, required: false,default: 0  },
-      boughtFor: { type: Number, required: false,default: 0  },
+      soldFor: { type: Number, required: false, default: 0 },
+      boughtFor: { type: Number, required: false, default: 0 },
       media: { type: [String], required: true },
-      dateCreated:{ type: String, default: new Date()}
+      dateCreated: { type: String, default: new Date() },
+      displaynumber: { type: Number, default: 0 }
   });
 
-  
+
 
   module.exports = mongoose.model('Stock', StockSchema);
