@@ -124,6 +124,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
 
             });
         }
+        
 
 
         $scope.getStockItemandDisplay = function(item) {
