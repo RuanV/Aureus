@@ -37,14 +37,24 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
         $scope.DataReady = false;
         $scope.HomepageData = [];
         $scope.GetHomePageStock = function() {
-            Stock.getStock().then(function(data) {
+            
+            Stock.getHomepage().then(function(data) {
                 if (data.data.items) {
                     $scope.HomepageData = data.data.items;
+                    console.log($scope.HomepageData);
                     $scope.getDetails();
+                    Stock.getStock().then(function(data) {
+                        if (data.data.items) {
+                            $scope.ViewingData = data.data.items;
+                        }else{
+                            $scope.ViewingData ="No data";
+                        }
+                    })
                 } else {
                     console.log(data.data);
                 }
             })
+
         }
         $scope.GetHomePageStock();
 
@@ -92,7 +102,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                     } else {
                         $scope.MessagValidate = false;
                         $scope.MessagValidateMessage = data.data.message;
-                         Swal.close();
+                        Swal.close();
                     }
                 });
             }
@@ -117,9 +127,10 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
 
 
         $scope.getStockItemandDisplay = function(item) {
-            $scope.ItemDisplayData = item;
+            var itemFound = $scope.ViewingData.filter(i => i._id === item._id)[0];
+            $scope.ItemDisplayData = itemFound;
             $location.path('/displayItem');
-            
+
         }
 
         $scope.BackHome = function() {
@@ -207,60 +218,60 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
             '</div>';
 
         $scope.SendQuery = function(item) {
-                Swal.fire({
-                    title: 'Send Query',
-                    html: $scope.queryHTML,
-                    showCancelButton: true,
-                    confirmButtonText: "Send Query",
-                    onBeforeOpen: () => {},
-                    onOpen: function() {
-                        setTimeout(function() {
-                            $scope.$apply();
-                            $compile($('#AngularApply').contents())($scope);
-                        }, 500);
-                    },
-                    preConfirm: function() {
-                        $scope.QueryInfo.user = $scope.LoginUser;
-                        $scope.QueryInfo.item = item.name;
-                        $scope.QueryInfo.email = $scope.Setup.email;
-                        if ($scope.QueryInfo == "") {
-                            console.log(1);
-                            $scope.NoInfo = true;
-                            return false;
-                        } else if ($scope.QueryInfo == {}) {
-                            console.log(2);
-                            $scope.NoInfo = true;
-                            return false;
+            Swal.fire({
+                title: 'Send Query',
+                html: $scope.queryHTML,
+                showCancelButton: true,
+                confirmButtonText: "Send Query",
+                onBeforeOpen: () => {},
+                onOpen: function() {
+                    setTimeout(function() {
+                        $scope.$apply();
+                        $compile($('#AngularApply').contents())($scope);
+                    }, 500);
+                },
+                preConfirm: function() {
+                    $scope.QueryInfo.user = $scope.LoginUser;
+                    $scope.QueryInfo.item = item.name;
+                    $scope.QueryInfo.email = $scope.Setup.email;
+                    if ($scope.QueryInfo == "") {
+                        console.log(1);
+                        $scope.NoInfo = true;
+                        return false;
+                    } else if ($scope.QueryInfo == {}) {
+                        console.log(2);
+                        $scope.NoInfo = true;
+                        return false;
+                    } else {
+                        $scope.NoInfo = false;
+                        return true;
+                    }
+                }
+            }).then((result) => {
+                if (result.value) {
+                    console.log($scope.QueryInfo);
+                    $scope.LoadingSWAL();
+                    $http.post('/api/query', $scope.QueryInfo).then(function(data) {
+                        console.log(data.data.success);
+                        Swal.close();
+                        if (data.data.success) {
+                            Swal.fire({
+                                title: data.data.message,
+                                icon: 'success',
+                                allowOutsideClick: false,
+                                timer: 1000
+                            });
                         } else {
-                            $scope.NoInfo = false;
-                            return true;
+                            Swal.fire({
+                                title: data.data.message,
+                                icon: 'error',
+                                allowOutsideClick: false,
+                                timer: 1000
+                            });
                         }
-                    }
-                }).then((result) => {
-                    if (result.value) {
-                        console.log($scope.QueryInfo);
-                        $scope.LoadingSWAL();
-                        $http.post('/api/query', $scope.QueryInfo).then(function(data) {
-                            console.log(data.data.success);
-                            Swal.close();
-                            if (data.data.success) {
-                                Swal.fire({
-                                    title: data.data.message,
-                                    icon: 'success',
-                                    allowOutsideClick: false,
-                                    timer: 1000
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: data.data.message,
-                                    icon: 'error',
-                                    allowOutsideClick: false,
-                                    timer: 1000
-                                });
-                            }
-                        })
-                    }
-                })
+                    })
+                }
+            })
         }
 
 

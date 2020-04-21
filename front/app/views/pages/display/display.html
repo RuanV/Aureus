@@ -1,13 +1,13 @@
-<div style="width: 100%;background-color:rgba(27, 27, 27); color: white; padding: 10px;" ng-if="!IsMobile">
-    <table style="width: 100%;text-align: center;padding: 6px;" >
+<div style="width: 100%;background-color:rgba(27, 27, 27); color: white; padding: 10px;height: 100%;" ng-if="!IsMobile">
+    <table style="width: 100%;text-align: center;padding: 6px;height: 100%;" >
         <tr style="padding: 10px;">
             <td> <button class="ImageArrows" ng-click="ChangeFotoleft(ItemDisplayData.media)">&#8882;</button></td>
-            <td><img src="{{ItemDisplayData.media[ChnagePNG]}}" style="height: 310px; float: middle;"></td>
+            <td><img src="{{ItemDisplayData.media[ChnagePNG]}}" style="height: 500px; width: 60%; float: middle;"></td>
             <td> <button class="ImageArrows" ng-click="ChangeFotoRight(ItemDisplayData.media)">&#8883;</button></td>
         </tr>
     </table>
     <br>
-    <table style="width: 100%; padding: 10px;" ng-if="ItemDisplayData">
+    <table style="width: 100%; padding: 10px;height: 100%;" ng-if="ItemDisplayData">
         <tr>
             <td>
                 <table>
@@ -23,7 +23,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <h3>Year: {{ItemDisplayData.model}}</h3>
+                            <h3>Model: {{ItemDisplayData.model}}</h3>
                         </td>
                     </tr>
                     <tr>

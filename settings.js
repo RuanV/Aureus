@@ -14,7 +14,7 @@ var settings = function(port) {
 		}
 	} else {
 		return {
-			mongoUri: "mongodb://localhost:27017/test"
+			mongoUri: "mongodb://localhost:27018/test"
 		};
 	}
 }

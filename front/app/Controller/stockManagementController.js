@@ -21,10 +21,10 @@ angular.module('stockManagementController', ['stockServices'])
 
         $scope.GetStock = function() {
             Stock.getStock().then(function(data) {
+                console.log(data);
                 if (data.data.success) {
                     if ($scope.userisAdmin) {
                         if (data.data.items) {
-                            console.log(data.data.items);
                             $scope.FetchefStock = data.data.items;
                             $scope.StockbeenFetched = true;
                         }

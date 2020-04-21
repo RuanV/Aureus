@@ -212,7 +212,10 @@ module.exports = function(router) {
             } else if (req._parsedOriginalUrl.pathname == "/api/getcontacts") {
                 console.log(req._parsedOriginalUrl.pathname);
                 next();
-            } else {
+            } else if (req._parsedOriginalUrl.pathname == "/api/homepagedata") {
+                console.log(req._parsedOriginalUrl.pathname);
+                next();
+            }  else {
                 res.json({ succces: false, message: "No Token Provided" });
             }
 
@@ -274,6 +277,22 @@ module.exports = function(router) {
 
         })
     });
+
+    router.get('/homepagedata', function(req, res) {
+        StockItem.find({}, function(err, items) {
+            if (err) throw err;
+            if (!items) {
+                res.json({ success: false, message: "Items not found" })
+            } else {
+                items.forEach(function(item){
+                    item.media = item.media[item.displaynumber];
+                })
+                res.json({ success: true, items: items });
+            }
+
+        })
+    });
+
     router.get('/getstockmanagement/:_id', function(req, res) {
         var getItem = req.params._id;
         StockItem.findOne({ _id: getItem }, function(err, item) {
