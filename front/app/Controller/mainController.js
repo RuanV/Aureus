@@ -1,6 +1,7 @@
 angular.module('mainControllers', ['authServices', 'stockServices'])
 
     .controller('mainCtrl', function(Auth, $scope, $timeout, $location, $rootScope, User, Stock, $compile, $http) {
+        
         var app = this;
         $scope.LoginUser = {};
         $scope.userisAdmin = false;
