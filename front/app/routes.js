@@ -1,12 +1,19 @@
 var app = angular.module('appRoutes', ['ngRoute'])
 
     .config(function($routeProvider, $locationProvider) {
-        $routeProvider.when('/', {
+
+        
+        $routeProvider.when('/home', {
                 templateUrl: 'app/views/pages/home.html'
             })
-
             .when('/contact', {
                 templateUrl: 'app/views/pages/contact.html'
+            })
+            .when('/navigation', {
+                templateUrl: 'app/views/pages/navigation.html'
+            })
+            .when('/subnavigation', {
+                templateUrl: 'app/views/pages/subnavigation.html'
             })
             .when('/register', {
                 templateUrl: 'app/views/pages/users/register.html',
@@ -43,6 +50,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
                 authenticated: true,
                 permission: ['admin', 'moderator']
             })
+            .when('/advert', {
+                templateUrl: 'app/views/pages/management/advertmanagement.html',
+                controller: 'advert',
+                controllerAS: 'advert',
+                authenticated: true,
+                permission: ['admin', 'moderator']
+            })
             .when('/stockmanagement', {
                 templateUrl: 'app/views/pages/management/stock.html',
                 controller: 'stockManagement',
@@ -50,7 +64,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
                 authenticated: true,
                 permission: ['admin', 'moderator']
             })
-            .otherwise({ redirectTo: '/' });
+            .otherwise({ redirectTo: '/navigation' });
 
         $locationProvider.html5Mode({
             enabled: true,
@@ -63,7 +77,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 app.run(['$rootScope', 'Auth', 'User', function($rootScope, Auth, User) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
         //console.log(Auth.isLoggedIn());
-
+        console.log("Test1");
         if (next.$$route.authenticated === true) {
             if (Auth.isLoggedIn()) {
                 //event.preventDefault();

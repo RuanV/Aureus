@@ -1,7 +1,14 @@
 var User = require('../models/user');
-var StockItem = require('../models/stock');
-var Contact = require('../models/contact');
 var jwt = require('jsonwebtoken');
+var Models = require('../routes/AppModels');
+var FunctionHeaders = require('../models/FunctionHeaders');
+var ApiModels = {};
+if(Models.length > 0){
+    Models.forEach(model =>{
+        ApiModels[model.Name] = require (model.path);
+    })
+}
+
 var secret = 'RuanBokke';
 
 var nodemailer = require('nodemailer');
@@ -83,31 +90,7 @@ module.exports = function(router) {
         }
     });
 
-    router.post('/stock', function(req, res) {
-        var stock = new StockItem();
-        stock.name = req.body.name;
-        stock.price = req.body.price;
-        stock.description = req.body.description;
-        stock.model = req.body.model;
-        stock.category = req.body.category;
-        stock.media = req.body.media;
-        stock.displaynumber = req.body.displaynumber;
-        console.log(req.body);
-        if (req.body.name == null || req.body.name == "" || req.body.category == null || req.body.category == "" || req.body.price == null || req.body.price == "" || req.body.media.length == 0) {
-            res.json({ success: false, message: "Missing Info" });
-        } else {
-            stock.save(function(err) {
-                if (err) {
-                    res.json({ success: false, message: err });
-                } else {
-                    console.log("Saving Stock Item");
-                    res.json({ success: true, message: "item added to Stock" });
-                }
-            });
-
-        };
-
-    })
+    
 
     router.post('/query', function(req, res) {
         if (req.body.user) {
@@ -179,6 +162,7 @@ module.exports = function(router) {
 
         })
     });
+
     router.post('/checkemail', function(req, res) {
         User.findOne({ email: req.body.email }).select('email').exec(function(err, user) {
             if (err) throw err;
@@ -218,9 +202,6 @@ module.exports = function(router) {
             }  else {
                 res.json({ succces: false, message: "No Token Provided" });
             }
-
-
-
 
         }
 
@@ -266,18 +247,6 @@ module.exports = function(router) {
         })
     })
 
-    router.get('/stockmanagement', function(req, res) {
-        StockItem.find({}, function(err, items) {
-            if (err) throw err;
-            if (!items) {
-                res.json({ success: false, message: "Items not found" })
-            } else {
-                res.json({ success: true, items: items });
-            }
-
-        })
-    });
-
     router.get('/homepagedata', function(req, res) {
         StockItem.find({}, function(err, items) {
             if (err) throw err;
@@ -292,18 +261,6 @@ module.exports = function(router) {
 
         })
     });
-
-    router.get('/getstockmanagement/:_id', function(req, res) {
-        var getItem = req.params._id;
-        StockItem.findOne({ _id: getItem }, function(err, item) {
-            if (err) throw err;
-            if (!item) {
-                res.json({ success: false, message: "No StockItem found" });
-            } else {
-                res.json({ success: true, item: item });
-            }
-        })
-    })
 
     router.delete('/management/:username', function(req, res) {
         var deleteUser = req.params.username;
@@ -324,170 +281,16 @@ module.exports = function(router) {
         })
     })
 
-    router.delete('/managestock/:_id', function(req, res) {
-        var deleteItem = req.params._id;
-        User.findOne({ username: req.decoded.username }, function(err, mainuser) {
+    router.get('/entity/:entity', function(req, res) {
+
+        FunctionHeaders.find({}, function(err, items) {
             if (err) throw err;
-            if (!mainuser) {
-                res.json({ success: false, message: "No User found" })
+            if (!items) {
+                res.json({ success: false, message: "Items not found" })
             } else {
-                if (mainuser.permission !== 'admin') {
-                    res.json({ success: false, message: "Permision Denied" })
-                } else {
-                    StockItem.findOneAndRemove({ _id: deleteItem }, function(err, item) {
-                        if (err) throw err;
-                        res.json({ success: true });
-                    })
-                }
+                res.json({ success: true, items: items });
             }
-        })
-    })
 
-
-
-    router.put('/edit', function(req, res) {
-        var edituser = req.body.username;
-        User.findOne({ username: req.decoded.username }, function(err, mainuser) {
-            if (err) throw err;
-            if (!mainuser) {
-                res.json({ success: false, message: "No User found" })
-            } else {
-                if (mainuser.permission === 'admin' || mainuser.permission === 'moderator') {
-                    User.findOne({ username: edituser }, function(err, user) {
-                        if (err) throw err;
-                        if (!user) {
-                            res.json({ success: false, message: "No User found" })
-                        } else {
-                            user.name = req.body.name;
-                            user.username = req.body.username;
-                            user.email = req.body.email;
-                            user.permission = req.body.permission;
-                            User.findOneAndUpdate({ _id: req.body._id }, user, { upsert: true }, function(err, user) {
-                                if (err) throw err;
-                                if (!user) {
-                                    res.json({ success: false, message: "No User found" })
-                                } else {
-                                    res.json({ success: true, message: user })
-                                }
-                            });
-                        }
-                    })
-                } else {
-                    res.json({ success: false, message: "Permision Denied" })
-                }
-            }
-        })
-
-    })
-
-    router.put('/editstock', function(req, res) {
-        var editItem = req.body;
-        console.log(editItem.displaynumber);
-        User.findOne({ username: req.decoded.username }, function(err, mainuser) {
-            if (err) throw err;
-            if (!mainuser) {
-                res.json({ success: false, message: "No User found" })
-            } else {
-                if (mainuser.permission === 'admin' || mainuser.permission === 'moderator') {
-                    StockItem.findOne({ _id: editItem._id }, function(err, stock) {
-                        if (err) throw err;
-                        if (!stock) {
-                            res.json({ success: false, message: "No item found" });
-                        } else {
-                            stock.name = req.body.name;
-                            stock.model = req.body.model;
-                            stock.price = req.body.price;
-                            stock.category = req.body.category;
-                            stock.description = req.body.description;
-                            stock.media = req.body.media;
-                            stock.sold = req.body.sold;
-                            stock.displaynumber = req.body.displaynumber;
-                            StockItem.findOneAndUpdate({ _id: req.body._id }, stock, { upsert: true }, function(err, item) {
-                                if (err) throw err;
-                                if (!item) {
-                                    res.json({ success: false, message: "No Item found" })
-                                } else {
-                                    res.json({ success: true, message: item })
-                                }
-                            });
-                        }
-                    })
-                } else {
-                    res.json({ success: false, message: "Permision Denied" })
-                }
-            }
-        })
-
-    })
-
-    router.post('/contact', function(req, res) {
-        User.findOne({ username: req.decoded.username }, function(err, mainuser) {
-            if (err) throw err;
-            if (!mainuser) {
-                res.json({ success: false, message: "No User found" })
-            } else {
-                if (mainuser.permission === 'admin' || mainuser.permission === 'moderator') {
-                    if (req.body.name == null || req.body.email == "" || req.body.email == null || req.body.maincellnumber == "" || req.body.maincellnumber == null || req.body.altcellnumber == "" || req.body.altcellnumber == null) {
-                        res.json({ success: false, message: "Missing Info" });
-                    } else {
-                        Contact.findOne({ _id: req.body._id }, function(err, contact) {
-                            if (err) throw err;
-                            if (!contact) {
-                                var newContact = new Contact();
-                                newContact.name = req.body.name;
-                                newContact.email = req.body.email;
-                                newContact.maincellnumber = req.body.maincellnumber;
-                                newContact.altcellnumber = req.body.altcellnumber;
-                                newContact.address = req.body.address;
-                                newContact.bank = req.body.bank;
-                                newContact.bankbranch = req.body.bankbranch;
-                                newContact.bankaccount = req.body.bankaccount;
-                                newContact.save(function(err) {
-                                    if (err) {
-                                        res.json({ success: false, message: err });
-                                    } else {
-                                        console.log("Saving Contact Item");
-                                        res.json({ success: true, message: "item added to Contact Details" });
-                                    }
-                                });
-
-                            } else {
-                                contact.name = req.body.name;
-                                contact.email = req.body.email;
-                                contact.maincellnumber = req.body.maincellnumber;
-                                contact.altcellnumber = req.body.altcellnumber;
-                                contact.address = req.body.address;
-                                contact.bank = req.body.bank;
-                                contact.bankbranch = req.body.bankbranch;
-                                contact.bankaccount = req.body.bankaccount;
-                                Contact.findOneAndUpdate({ _id: req.body._id }, contact, { upsert: true }, function(err, item) {
-                                    if (err) throw err;
-                                    if (!item) {
-                                        res.json({ success: false, message: "No Contact found" })
-                                    } else {
-                                        res.json({ success: true, message: item })
-                                    }
-                                });
-                            }
-                        })
-
-                    };
-
-                } else {
-                    res.json({ success: false, message: "Permission Denied" })
-                }
-            }
-        })
-    })
-
-    router.get('/getcontacts', function(req, res) {
-        Contact.findOne({}, function(err, contact) {
-            if (err) throw err;
-            if (!contact) {
-                res.json({ success: false, message: "No item found" });
-            } else {
-                res.json({ success: true, contact: contact });
-            }
         })
     });
 

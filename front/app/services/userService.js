@@ -6,11 +6,9 @@ angular.module('userService', [])
         userFactory.create = function(data) {
             return $http.post('/api/users', data)
         };
-        //User.checkusername();
         userFactory.checkusername = function(data) {
             return $http.post('/api/checkusername', data)
         };
-        //User.checkemail();
         userFactory.checkemail = function(data) {
             return $http.post('/api/checkemail', data)
         };

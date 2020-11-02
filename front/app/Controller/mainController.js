@@ -1,9 +1,28 @@
-angular.module('mainControllers', ['authServices', 'stockServices'])
+angular.module('mainControllers', ['authServices', 'stockServices','mainAppService'])
 
-    .controller('mainCtrl', function(Auth, $scope, $timeout, $location, $rootScope, User, Stock, $compile, $http) {
-        
+    .controller('mainCtrl', function(Auth, $scope, $timeout, $location, $rootScope, User, Stock, $compile, $http,MainService) {
+       // Web.App();
+
+
+
+       console.log(MainService.FetchEntity("FunctionHeaders"));
         var app = this;
         $scope.LoginUser = {};
+        $scope.Functions = [{
+            Name: "Users",
+            Controller:"UserController",
+            ControllerPath:"",
+            Icon: "fas fa-users",
+            FunctionHeader: "App Management"
+        },
+        {
+            Name: "User Groups",
+            Controller:"GroupController",
+            ControllerPath:"",
+            Icon: "fas fa-universal-access",
+            FunctionHeader: "App Management"
+        }];
+        
         $scope.userisAdmin = false;
         var isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
         if (isMobile) {
@@ -37,27 +56,6 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
         $scope.isUserAdmin();
         $scope.DataReady = false;
         $scope.HomepageData = [];
-        $scope.GetHomePageStock = function() {
-            
-            Stock.getHomepage().then(function(data) {
-                if (data.data.items) {
-                    $scope.HomepageData = data.data.items;
-                    console.log($scope.HomepageData);
-                    $scope.getDetails();
-                    Stock.getStock().then(function(data) {
-                        if (data.data.items) {
-                            $scope.ViewingData = data.data.items;
-                        }else{
-                            $scope.ViewingData ="No data";
-                        }
-                    })
-                } else {
-                    console.log(data.data);
-                }
-            })
-
-        }
-        $scope.GetHomePageStock();
 
         $scope.HomePageFilter = {};
         $scope.HomePageFilter.sold = false;
@@ -83,8 +81,11 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                 $scope.Loadme = true;
             }
         });
-        if ($location.path() == "/displayItem") {
-            $location.path('/');
+
+        if (Auth.isLoggedIn()) {
+            $location.path('/navigation');
+        }else{
+            $location.path('/login');
         }
 
 
@@ -96,7 +97,6 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                     if (data.data.succces) {
                         $scope.MessagValidate = true;
                         $scope.MessagValidateMessage = data.data.message;
-                        $scope.GetHomePageStock();
                         Swal.close();
                         $timeout(function() { $location.path('/') }, 1200);
                         $scope.isUserAdmin();
@@ -125,7 +125,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
 
             });
         }
-        
+
 
 
         $scope.getStockItemandDisplay = function(item) {
@@ -136,7 +136,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
         }
 
         $scope.BackHome = function() {
-            $location.path('/');
+            $location.path('/home');
         }
 
         $scope.Logout = function() {
@@ -144,7 +144,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
             $scope.UserLoggedIn = false;
             $location.path('/logout');
             $timeout(function() {
-                $location.path('/');
+                $location.path('/login');
             }, 2000);
         }
 
@@ -275,6 +275,28 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                 }
             })
         }
+        var toggle = false;
+        $scope.ToggleSideNav =function(){
+           if(!toggle){
+                $( "#PageLogo" ).css( "width", "0px" );
+                $( "#MainSideNave" ).css( "width", "0px" );
+                toggle = true;
+            }else{
+                $( "#PageLogo" ).css( "width", "240px" );
+                $( "#MainSideNave" ).css( "width", "240px" );
+                toggle = false;
+            }
+        }
 
+        $scope.GoToproducts = function(item) {
+            console.log("Test");
+            $scope.HomePageFilter.category = item;
+            $location.path('/home');
+        }
 
+        $scope.SubNavigation = function(url){
+            $location.path(url);
+            console.log(url);
+
+        }
     })
