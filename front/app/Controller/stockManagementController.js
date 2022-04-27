@@ -91,11 +91,11 @@ angular.module('stockManagementController', ['stockServices'])
 
         $scope.addstockHTML = '<div id="AngularApply">' +
             '<form>' +
-            '<label>Item Name:</label>' +
+            '<label>Name:</label>' +
             '<input class="form-control" type="text" name="name" placeholder="Please Provide Name" ng-model="StockItem.name" required>' +
             '<br>' +
-            '<label>Model:</label>' +
-            '<input class="form-control" type="text" name="name" placeholder="Please Provide Model" ng-model="StockItem.model">' +
+            '<label>Extras:</label>' +
+            '<input class="form-control" type="text" name="name" placeholder="Please Provide Extras" ng-model="StockItem.model">' +
             '<br>' +
             '<label>Price (R):</label>' +
             '<input class="form-control" type="number" name="name" placeholder="Please Provide Price" ng-model="StockItem.price" required>' +
@@ -121,9 +121,9 @@ angular.module('stockManagementController', ['stockServices'])
             '<br>' +
             '<label >Category:</label>' +
             '<select class="form-control" ng-model="StockItem.category" required>' +
-            '<option value="Boat">Boat</option>' +
-            '<option value="Caravan">Caravan</option>' +
-            '<option value="Trailer">Trailer</option>' +
+            '<option value="House">House</option>' +
+            '<option value="Estate">Estate</option>' +
+            '<option value="Student">Student</option>' +
             '<option value="Other">Other</option>' +
             '</select>' +
             '</form>' +
@@ -193,7 +193,7 @@ angular.module('stockManagementController', ['stockServices'])
         $scope.AddStockItem = function() {
             $scope.getBase64 = [];
             Swal.fire({
-                title: 'Add Stock Item',
+                title: 'Add Item',
                 html: $scope.addstockHTML,
                 showCancelButton: true,
                 allowOutsideClick: false,
@@ -223,7 +223,7 @@ angular.module('stockManagementController', ['stockServices'])
                                     $scope.continue = false;
                                     resizeImage({
                                         file: allFiles[i],
-                                        maxSize: 350
+                                        maxSize: 900
                                     }).then(function(resizedImage) {
                                         console.log("upload resized image");
                                         var reader = new FileReader();
@@ -290,10 +290,10 @@ angular.module('stockManagementController', ['stockServices'])
         $scope.EditItem = {};
         $scope.editstockHTML = '<div id="AngularApply">' +
             '<form>' +
-            '<label>Item Name:</label>' +
+            '<label>Name:</label>' +
             '<input class="form-control" type="text" name="name" placeholder="Please Provide Name" ng-model="EditItem.name" required>' +
             '<br>' +
-            '<label>Model:</label>' +
+            '<label>Extras:</label>' +
             '<input class="form-control" type="text" name="name" placeholder="Please Provide Model" ng-model="EditItem.model">' +
             '<br>' +
             '<label>Price (R):</label>' +
@@ -321,9 +321,9 @@ angular.module('stockManagementController', ['stockServices'])
             '<br>' +
             '<label >Category:</label>' +
             '<select class="form-control" ng-model="EditItem.category" required>' +
-            '<option value="Boat">Boat</option>' +
-            '<option value="Caravan">Caravan</option>' +
-            '<option value="Trailer">Trailer</option>' +
+            '<option value="House">House</option>' +
+            '<option value="Estate">Estate</option>' +
+            '<option value="Student">Student</option>' +
             '<option value="Other">Other</option>' +
             '</select>' +
             '<br>' +
@@ -339,7 +339,7 @@ angular.module('stockManagementController', ['stockServices'])
             $scope.getBase64 = item.media;
             console.log(item);
             Swal.fire({
-                title: 'Edit Stock Item',
+                title: 'Edit Item',
                 html: $scope.editstockHTML,
                 showCancelButton: true,
                 allowOutsideClick: false,

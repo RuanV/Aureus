@@ -5,9 +5,9 @@
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" ng-click="closeNav()" style="font-size: 20px;">×</a>
         <a ng-click="HomePageFilter = {}">All</a>
-        <a ng-click="HomePageFilter.category = 'Boat'">Boats</a>
-        <a ng-click="HomePageFilter.category = 'Caravan'">Caravans</a>
-        <a ng-click="HomePageFilter.category = 'Trailer'">Trailers</a>
+        <a ng-click="HomePageFilter.category = 'House'">Houses</a>
+        <a ng-click="HomePageFilter.category = 'Estate'">Estates</a>
+        <a ng-click="HomePageFilter.category = 'Student'">Student Living</a>
         <a ng-click="HomePageFilter.category = 'Other'">Other</a>
     </div>
     <div style="padding: 5px;float: left; " ng-repeat="stock in HomepageData | filter:HomePageFilter" ng-if="!IsMobile">
@@ -19,7 +19,7 @@
             <p><button ng-click="getStockItemandDisplay(stock)">View</button></p>
         </div>
     </div>
-    <div style="padding: 8px;" ng-repeat="stock in HomepageData | filter:HomePageFilter" ng-if="IsMobile">
+    <div style="padding: 8px;" ng-repeat="stock in HomepageData | filter:c" ng-if="IsMobile">
         <div style="width: 100%;background-color:rgba(27, 27, 27);color: white;padding: 10px; border-radius: 5px;">
             <table style="width: 100%;text-align: center;">
                 <tr>
