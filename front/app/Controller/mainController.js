@@ -1,7 +1,7 @@
 angular.module('mainControllers', ['authServices', 'stockServices'])
 
     .controller('mainCtrl', function(Auth, $scope, $timeout, $location, $rootScope, User, Stock, $compile, $http) {
-        
+
         var app = this;
         $scope.LoginUser = {};
         $scope.userisAdmin = false;
@@ -38,7 +38,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
         $scope.DataReady = false;
         $scope.HomepageData = [];
         $scope.GetHomePageStock = function() {
-            
+
             Stock.getHomepage().then(function(data) {
                 if (data.data.items) {
                     $scope.HomepageData = data.data.items;
@@ -47,8 +47,8 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                     Stock.getStock().then(function(data) {
                         if (data.data.items) {
                             $scope.ViewingData = data.data.items;
-                        }else{
-                            $scope.ViewingData ="No data";
+                        } else {
+                            $scope.ViewingData = "No data";
                         }
                     })
                 } else {
@@ -84,7 +84,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
             }
         });
         if ($location.path() == "/displayItem") {
-            $location.path('/');
+            $location.path('/home');
         }
 
 
@@ -125,7 +125,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
 
             });
         }
-        
+
 
 
         $scope.getStockItemandDisplay = function(item) {
@@ -136,7 +136,7 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
         }
 
         $scope.BackHome = function() {
-            $location.path('/');
+            $location.path('/home');
         }
 
         $scope.Logout = function() {
@@ -275,6 +275,14 @@ angular.module('mainControllers', ['authServices', 'stockServices'])
                 }
             })
         }
+
+        $scope.GoToproducts = function(item) {
+            console.log("Test");
+            $scope.HomePageFilter.category = item;
+            $location.path('/home');
+        }
+
+       
 
 
     })
