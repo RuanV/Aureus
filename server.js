@@ -34,7 +34,7 @@ app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname + "/front/app/views/index.html"));
 });
 
-if (port == 443) {
+if (port === 443) {
   var server = https.createServer(settings.ssl, app);
   server.listen(port, () =>
     console.log("Server listening on port " + port + "!")

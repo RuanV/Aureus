@@ -1,44 +1,81 @@
 <div ng-if="HomepageData.length > 0">
-    <div id="main">
-        <button class="openbtn" ng-click="openNav()">Select Filters</button>
+  <div id="main">
+    <button class="openbtn" ng-click="openNav()">Select Filters</button>
+  </div>
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" ng-click="closeNav()" style="font-size: 20px"
+      >×</a
+    >
+    <a ng-click="HomePageFilter = {}">All</a>
+    <a ng-click="HomePageFilter.category = 'boat'">Boats</a>
+    <a ng-click="HomePageFilter.category = 'caravan'">Caravans</a>
+    <a ng-click="HomePageFilter.category = 'trailers'">Trailers</a>
+    <a ng-click="HomePageFilter.category = 'other'">Other</a>
+  </div>
+  <div
+    style="padding: 5px; float: left"
+    ng-repeat="stock in HomepageData | filter:HomePageFilter"
+    ng-if="!IsMobile"
+  >
+    <div class="card">
+      <img
+        src="{{stock.media[0]}}"
+        alt=""
+        style="width: 180px; height: 180px; max-height: 130px"
+      />
+      <h4 style="color: white"><b>{{stock.name}}</b></h4>
+      <p class="price">R {{stock.price}}</p>
+      <p style="color: white">Model: {{stock.model}}</p>
+      <p><button ng-click="getStockItemandDisplay(stock)">View</button></p>
     </div>
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" ng-click="closeNav()" style="font-size: 20px;">×</a>
-        <a ng-click="HomePageFilter = {}">All</a>
-        <a ng-click="HomePageFilter.category = 'Boat'">Boats</a>
-        <a ng-click="HomePageFilter.category = 'Caravan'">Caravans</a>
-        <a ng-click="HomePageFilter.category = 'Trailer'">Trailers</a>
-        <a ng-click="HomePageFilter.category = 'Other'">Other</a>
-    </div>
-    <div style="padding: 5px;float: left; " ng-repeat="stock in HomepageData | filter:HomePageFilter" ng-if="!IsMobile">
-        <div class="card">
-            <img src="{{stock.media[0]}}" alt="" style="width:180px;height: 180px; max-height: 130px;">
-            <h4 style="color: white;"><b>{{stock.name}}</b></h4>
+  </div>
+  <div
+    style="padding: 8px"
+    ng-repeat="stock in HomepageData | filter:c"
+    ng-if="IsMobile"
+  >
+    <div
+      style="
+        width: 100%;
+        background-color: rgba(27, 27, 27);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+      "
+    >
+      <table style="width: 100%; text-align: center">
+        <tr>
+          <td>
+            <img
+              src="{{stock.media[0]}}"
+              alt=""
+              style="width: 100%; height: 200px"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h2>{{stock.name}}</h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <p class="price">R {{stock.price}}</p>
-            <p style="color: white;">Model: {{stock.model}}</p>
-            <p><button ng-click="getStockItemandDisplay(stock)">View</button></p>
-        </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button
+              ng-click="getStockItemandDisplay(stock)"
+              class="btn btn-primary"
+              style="font-size: 20px"
+              ng-if="ViewingData.length > 0"
+            >
+              View
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
-    <div style="padding: 8px;" ng-repeat="stock in HomepageData | filter:HomePageFilter" ng-if="IsMobile">
-        <div style="width: 100%;background-color:rgba(27, 27, 27);color: white;padding: 10px; border-radius: 5px;">
-            <table style="width: 100%;text-align: center;">
-                <tr>
-                    <td><img src="{{stock.media[0]}}" alt="" style="width:100%;height: 200px;"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <h2>{{stock.name}}</h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="price">R {{stock.price}}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button ng-click="getStockItemandDisplay(stock)" class="btn btn-primary" style="font-size: 20px;" ng-if="ViewingData.length > 0">View</button></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>""
+  </div>
+</div>

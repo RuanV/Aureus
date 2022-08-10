@@ -26,7 +26,7 @@ var settings = function (port) {
     };
   } else {
     return {
-      mongoUri: "mongodb://localhost:27018/test",
+      mongoUri: "mongodb://127.0.0.1:27018/test?retryWrites=true&w=majority",
     };
   }
 };

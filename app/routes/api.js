@@ -8,8 +8,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'aureussales@gmail.com',
-        pass: 'xrnpycehrvdiodip'
+         user: 'ruan15viljoen@gmail.com',
+        pass: 'iwamysrksipftygg'
     }
 });
 
@@ -119,9 +119,9 @@ module.exports = function(router) {
 
             console.log(req.body.email);
             var mailOptions = {
-                from: 'aureussales@gmail.com',
+                from: 'ruan15viljoen@gmail.com',
                 to: req.body.email,
-                subject: 'Aures Sales',
+                subject: 'Real Estate Query',
                 html: sendText
             }
 

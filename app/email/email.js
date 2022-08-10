@@ -5,16 +5,16 @@ var Mail = {};
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'aureussales@gmail.com',
-        pass: 'xrnpycehrvdiodip'
+        user: 'ruan15viljoen@gmail.com',
+        pass: 'iwamysrksipftygg'
     }
 });
 
 
 var mailOptions = {
-    from: 'aureussales@gmail.com',
+    from: 'ruan15viljoen@gmail.com',
     to: 'ruan15viljoen@gmail.com',
-    subject: 'Aures Sales',
+    subject: 'Real Estate',
     text: 'That was easy!'
 };
 

@@ -1,1 +1,1 @@
-angular.module('emailController')
+angular.module("emailController");

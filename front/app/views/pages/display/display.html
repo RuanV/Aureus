@@ -1,144 +1,260 @@
-<div style="width: 100%;background-color:rgba(27, 27, 27); color: white; padding: 10px;height: 100%;" ng-if="!IsMobile">
-    <table style="width: 100%;text-align: center;padding: 6px;height: 100%;" >
-        <tr style="padding: 10px;">
-            <td> <button class="ImageArrows" ng-click="ChangeFotoleft(ItemDisplayData.media)">&#8882;</button></td>
-            <td><img src="{{ItemDisplayData.media[ChnagePNG]}}" style="height: 500px; width: 60%; float: middle;"></td>
-            <td> <button class="ImageArrows" ng-click="ChangeFotoRight(ItemDisplayData.media)">&#8883;</button></td>
-        </tr>
-    </table>
-    <br>
-    <table style="width: 100%; padding: 10px;height: 100%;" ng-if="ItemDisplayData">
-        <tr>
-            <td>
+<div
+  style="
+    width: 100%;
+    background-color: rgba(27, 27, 27);
+    color: white;
+    padding: 10px;
+    height: 100%;
+  "
+  ng-if="!IsMobile"
+>
+  <br />
+  <div class="container">
+    <table style="width: 100%">
+      <tr>
+        <td>
+          <table
+            style="width: 100%; text-align: center; padding: 6px; height: 100%"
+          >
+            <tr style="padding: 10px">
+              <td>
+                <button
+                  class="ImageArrows"
+                  ng-click="ChangeFotoleft(ItemDisplayData.media)"
+                >
+                  &#8882;
+                </button>
+              </td>
+              <td>
+                <img
+                  src="{{ItemDisplayData.media[ChnagePNG]}}"
+                  style="height: 500px; width: 80%; float: middle"
+                />
+              </td>
+              <td>
+                <button
+                  class="ImageArrows"
+                  ng-click="ChangeFotoRight(ItemDisplayData.media)"
+                >
+                  &#8883;
+                </button>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table
+            style="width: 100%; padding: 10px; height: 100%"
+            ng-if="ItemDisplayData"
+          >
+            <tr>
+              <td>
                 <table>
-                    <tr>
-                        <td>
-                            <h2>{{ItemDisplayData.name}}</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style="width: 300px;height:40px;">{{ItemDisplayData.description}}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Model: {{ItemDisplayData.model}}</h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h2>R {{ItemDisplayData.price}}</h2>
-                        </td>
-                    </tr>
+                  <tr>
+                    <td>
+                      <h2>{{ItemDisplayData.name}}</h2>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p style="width: 300px; height: 40px">
+                        {{ItemDisplayData.description}}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h3>Model: {{ItemDisplayData.model}}</h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h2>R {{ItemDisplayData.price}}</h2>
+                    </td>
+                  </tr>
                 </table>
-            </td>
-            <td>
-                <table class="table" style="background-color: rgba(86, 101, 115,0.8);border-radius: 6px;">
-                    <tr>
-                        <td>
-                            <h3>Contact:</h3>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{Setup.name}}</td>
-                        <td>{{Setup.maincellnumber}}</td>
-                    </tr>
-                    <tr>
-                        <td>Alternative:</td>
-                        <td>{{Setup.altcellnumber}}</td>
-                    </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td>{{Setup.email}}</td>
-                    </tr>
-                    <tr>
-                        <td><button class="btn btn-primary" ng-click="SendQuery(ItemDisplayData)" style="background-color: rgba(120, 144, 156,0.6);">Send Query</button></td>
-                        <td></td>
-                    </tr>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table
+                  class="table"
+                  style="
+                    background-color: rgba(86, 101, 115, 0.8);
+                    border-radius: 6px;
+                  "
+                >
+                  <tr>
+                    <td>
+                      <h3>Contact:</h3>
+                    </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>{{Setup.name}}</td>
+                    <td>{{Setup.maincellnumber}}</td>
+                  </tr>
+                  <tr>
+                    <td>Alternative:</td>
+                    <td>{{Setup.altcellnumber}}</td>
+                  </tr>
+                  <tr>
+                    <td>Email:</td>
+                    <td>{{Setup.email}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button
+                        class="btn btn-primary"
+                        ng-click="SendQuery(ItemDisplayData)"
+                        style="background-color: rgba(120, 144, 156, 0.6)"
+                      >
+                        Send Query
+                      </button>
+                    </td>
+                    <td></td>
+                  </tr>
                 </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div><button class="btn btn-warning" style="background-color: rgba(255, 160, 0,0.6);" ng-click="BackHome()">Back</button></div>
-            </td>
-        </tr>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div>
+                  <button
+                    class="btn btn-warning"
+                    style="background-color: rgba(255, 160, 0, 0.6)"
+                    ng-click="BackHome()"
+                  >
+                    Back
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
     </table>
+  </div>
 </div>
-<div style="width: 100%;background-color:rgba(27, 27, 27); color: white; padding: 10px;" ng-if="IsMobile">
-    <table style="width: 100%;">
-        <tr>
+<div
+  style="
+    width: 100%;
+    background-color: rgba(27, 27, 27);
+    color: white;
+    padding: 10px;
+  "
+  ng-if="IsMobile"
+>
+  <table style="width: 100%">
+    <tr>
+      <td>
+        <table style="width: 100%">
+          <tr>
             <td>
-                <table style="width: 100%;">
-                    <tr>
-                        <td><img src="{{ItemDisplayData.media[ChnagePNG]}}" style="width:100%;height:220px; padding: 20px;"></td>
-                    </tr>
-                    <tr>
-                        <td> <button class="ImageArrows" ng-click="ChangeFotoleft(ItemDisplayData.media)" style="float: left;">&#8882;</button> <button class="ImageArrows" ng-click="ChangeFotoRight(ItemDisplayData.media)" style="float: right;">&#8883;</button></td>
-                    </tr>
-                </table>
+              <img
+                src="{{ItemDisplayData.media[ChnagePNG]}}"
+                style="width: 100%; height: 220px; padding: 20px"
+              />
             </td>
-        </tr>
-        <tr>
+          </tr>
+          <tr>
             <td>
-                <table>
-                    <tr>
-                        <td>
-                            <h1>{{ItemDisplayData.name}}</h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style="width: 100%;">{{ItemDisplayData.description}}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Year: {{ItemDisplayData.model}}</h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h2>R {{ItemDisplayData.price}}</h2>
-                        </td>
-                    </tr>
-                </table>
+              <button
+                class="ImageArrows"
+                ng-click="ChangeFotoleft(ItemDisplayData.media)"
+                style="float: left"
+              >
+                &#8882;
+              </button>
+              <button
+                class="ImageArrows"
+                ng-click="ChangeFotoRight(ItemDisplayData.media)"
+                style="float: right"
+              >
+                &#8883;
+              </button>
             </td>
-        </tr>
-        <tr>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
             <td>
-                <table class="table" style="background-color: rgba(86, 101, 115,0.8);border-radius: 6px;">
-                    <tr>
-                        <td>
-                            <h3>Contact:</h3>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{Setup.name}}</td>
-                        <td>{{Setup.maincellnumber}}</td>
-                    </tr>
-                    <tr>
-                        <td>Alternative:</td>
-                        <td>{{Setup.altcellnumber}}</td>
-                    </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td>{{Setup.email}}</td>
-                    </tr>
-                    <tr>
-                        <td><button class="btn btn-primary" ng-click="SendQuery(ItemDisplayData)" style="background-color: rgba(120, 144, 156,0.6);">Send Query</button></td>
-                        <td></td>
-                    </tr>
-                </table>
+              <h1>{{ItemDisplayData.name}}</h1>
             </td>
-        </tr>
-        <tr>
+          </tr>
+          <tr>
             <td>
-                <div><button class="btn btn-warning" style="background-color: rgba(255, 160, 0,0.6);" ng-click="BackHome()">Back</button></div>
+              <p style="width: 100%">{{ItemDisplayData.description}}</p>
             </td>
-        </tr>
-    </table>
+          </tr>
+          <tr>
+            <td>
+              <h3>Year: {{ItemDisplayData.model}}</h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h2>R {{ItemDisplayData.price}}</h2>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table
+          class="table"
+          style="background-color: rgba(86, 101, 115, 0.8); border-radius: 6px"
+        >
+          <tr>
+            <td>
+              <h3>Contact:</h3>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>{{Setup.name}}</td>
+            <td>{{Setup.maincellnumber}}</td>
+          </tr>
+          <tr>
+            <td>Alternative:</td>
+            <td>{{Setup.altcellnumber}}</td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td>{{Setup.email}}</td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                class="btn btn-primary"
+                ng-click="SendQuery(ItemDisplayData)"
+                style="background-color: rgba(120, 144, 156, 0.6)"
+              >
+                Send Query
+              </button>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div>
+          <button
+            class="btn btn-warning"
+            style="background-color: rgba(255, 160, 0, 0.6)"
+            ng-click="BackHome()"
+          >
+            Back
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
 </div>

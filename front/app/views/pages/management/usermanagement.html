@@ -1,53 +1,136 @@
 <div>
-    <h1><b>User Management</b></h1>
+  <h1><b>User Management</b></h1>
 </div>
-<div style="width: 100%;" ng-if="!IsMobile">
-    <select class="form-control" ng-model="ShowUsers" style="background-color:rgba(27, 27, 27);color: white; ">
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="undefined">All</option>
-    </select>
-    <div class="panel panel-info">
-        <table class="table" style="background-color:rgba(27, 27, 27);color: white; ">
-            <tr>
-                <th><input class="TableFilters" type="text" ng-model="UserFilters.name" placeholder="Name"></th>
-                <th><input class="TableFilters" type="text" ng-model="UserFilters.username" placeholder="Username"></th>
-                <th><input class="TableFilters" type="text" ng-model="UserFilters.email" placeholder="Email"></th>
-                <th><input class="TableFilters" type="text" ng-model="UserFilters.permission" placeholder="Permision"></th>
-                <th>#</th>
-                <th>#</th>
-            </tr>
-            <tr ng-repeat="user in AppUsers | limitTo: ShowUsers |filter:UserFilters">
-                <td>{{user.name}}</td>
-                <td>{{user.username}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.permission}}</td>
-                <td><a href="" ng-show="EditAccess"><button type="button" class="btn btn-warning" ng-click="EditUser(user)" style="background-color: rgba(255, 160, 0,0.6);">Edit</button></a></td>
-                <td><a href="" ng-show="DeleteAccess"><button type="button" class="btn btn-danger" ng-click="deleteUser(user.username)" style="background-color: rgba(244, 67, 54,0.6);">&#x2297;</button></a></td>
-            </tr>
-        </table>
-    </div>
+<div style="width: 100%" ng-if="!IsMobile">
+  <select
+    class="form-control"
+    ng-model="ShowUsers"
+    style="background-color: rgba(27, 27, 27); color: white"
+  >
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+    <option value="undefined">All</option>
+  </select>
+  <div class="panel panel-info">
+    <table
+      class="table"
+      style="background-color: rgba(27, 27, 27); color: white"
+    >
+      <tr>
+        <th>
+          <input
+            class="TableFilters"
+            type="text"
+            ng-model="UserFilters.name"
+            placeholder="Name"
+          />
+        </th>
+        <th>
+          <input
+            class="TableFilters"
+            type="text"
+            ng-model="UserFilters.username"
+            placeholder="Username"
+          />
+        </th>
+        <th>
+          <input
+            class="TableFilters"
+            type="text"
+            ng-model="UserFilters.email"
+            placeholder="Email"
+          />
+        </th>
+        <th>
+          <input
+            class="TableFilters"
+            type="text"
+            ng-model="UserFilters.permission"
+            placeholder="Permision"
+          />
+        </th>
+        <th>#</th>
+        <th>#</th>
+      </tr>
+      <tr ng-repeat="user in AppUsers | limitTo: ShowUsers |filter:UserFilters">
+        <td>{{user.name}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.permission}}</td>
+        <td>
+          <a href="" ng-show="EditAccess"
+            ><button
+              type="button"
+              class="btn btn-warning"
+              ng-click="EditUser(user)"
+              style="background-color: rgba(255, 160, 0, 0.6)"
+            >
+              Edit
+            </button></a
+          >
+        </td>
+        <td>
+          <a href="" ng-show="DeleteAccess"
+            ><button
+              type="button"
+              class="btn btn-danger"
+              ng-click="deleteUser(user.username)"
+              style="background-color: rgba(244, 67, 54, 0.6)"
+            >
+              &#x2297;
+            </button></a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
-<div style="width: 100%;" ng-if="IsMobile">
-    <select class="form-control" ng-model="ShowUsers" style="background-color:rgba(27, 27, 27);color: white; ">
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="undefined">All</option>
-    </select>
-    <div class="panel panel-info" style="">
-        <table class="table" style="background-color:rgba(27, 27, 27);color: white; padding: 8px;">
-            <tr>
-                <th><input class="TableFilters" style="width: 100px;" type="text" ng-model="UserFilters.name" placeholder="Name"></th>
-                <th><input class="TableFilters" style="width: 100px;" type="text" ng-model="UserFilters.permission" placeholder="Permision"></th>
-            </tr>
-            <tr ng-repeat="user in AppUsers | limitTo: ShowUsers |filter:UserFilters" ng-click="EditUser(user)">
-                <td>{{user.name}}</td>
-                <td>{{user.permission}}</td>
-            </tr>
-        </table>
-    </div>
+<div style="width: 100%" ng-if="IsMobile">
+  <select
+    class="form-control"
+    ng-model="ShowUsers"
+    style="background-color: rgba(27, 27, 27); color: white"
+  >
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+    <option value="undefined">All</option>
+  </select>
+  <div class="panel panel-info" style="">
+    <table
+      class="table"
+      style="background-color: rgba(27, 27, 27); color: white; padding: 8px"
+    >
+      <tr>
+        <th>
+          <input
+            class="TableFilters"
+            style="width: 100px"
+            type="text"
+            ng-model="UserFilters.name"
+            placeholder="Name"
+          />
+        </th>
+        <th>
+          <input
+            class="TableFilters"
+            style="width: 100px"
+            type="text"
+            ng-model="UserFilters.permission"
+            placeholder="Permision"
+          />
+        </th>
+      </tr>
+      <tr
+        ng-repeat="user in AppUsers | limitTo: ShowUsers |filter:UserFilters"
+        ng-click="EditUser(user)"
+      >
+        <td>{{user.name}}</td>
+        <td>{{user.permission}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
