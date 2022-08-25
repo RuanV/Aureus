@@ -328,10 +328,10 @@ angular
         "<br>" +
         "<label >Category:</label>" +
         '<select class="form-control" ng-model="EditItem.category" required>' +
-        '<option value="House">House</option>' +
-        '<option value="Estate">Estate</option>' +
-        '<option value="Student">Student</option>' +
-        '<option value="Other">Other</option>' +
+        '<option value="boat">Boats</option>' +
+        '<option value="caravan">Caravan</option>' +
+        '<option value="trailer">Trailer</option>' +
+        '<option value="other">Other</option>' +
         "</select>" +
         "<br>" +
         '<a href="" ng-if="IsMobile"><button type="button" class="btn btn-danger" ng-click="deleteStockItem(EditItem)" style="background-color: rgba(244, 67, 54,0.6);">&#x2297;</button></a>' +
