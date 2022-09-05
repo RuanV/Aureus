@@ -1,21 +1,21 @@
 {
-    "name": "RealEstate",
-    "short_name": "RealEstate",
+    "name": "Aureus",
+    "short_name": "Aureus",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "description": "Selling and Buying of RealEstate",
+    "description": "Selling and Buying of Caravans and Trailers",
     "orientation": "any",
     "background_color": "rgb(34, 33, 33)",
     "theme_color": "rgb(34, 33, 33)",
     "icons": [
     {
-        "src": "assets/images/RealEstate.jpg",
+        "src": "assets/images/background.jpg",
         "sizes": "3639x2585",
         "type": "image/png"
     },
     {
-        "src": "assets/images/House.png",
+        "src": "assets/images/icon1.png",
         "sizes": "600x600",
         "type": "image/png"
     }]
