@@ -11,12 +11,12 @@
     "icons": [
     {
         "src": "assets/images/background.jpg",
-        "sizes": "3639x2585",
+        "sizes": "2026x1283",
         "type": "image/png"
     },
     {
         "src": "assets/images/icon1.png",
-        "sizes": "600x600",
+        "sizes": "32x32",
         "type": "image/png"
     }]
 }
